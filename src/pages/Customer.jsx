@@ -82,29 +82,37 @@ const Customer = () => {
 
   return (
     <div style={{ padding: 24 }}>
-      <h1>{customer.name}</h1>
-
-      {customer.phone && <p>📞 {customer.phone}</p>}
-      {customer.email && <p>✉️ {customer.email}</p>}
-
-      <div style={counterStyle}>
-        <h2>{customer.remaining}</h2>
-        <p>Sharpenings Remaining</p>
+      <div style={infoContainerStyle}>
+        <div style={customerInfoStyle}>
+          <h1>{customer.name}</h1>
+        {customer.phone && <p>📞 {customer.phone}</p>}
+        {customer.email && <p>✉️ {customer.email}</p>}
       </div>
 
-      <div style={{ display: "flex", gap: 12, marginTop: 16 }}>
-        <button onClick={() => handleTransaction(+1)}>+1</button>
-        <button onClick={() => handleTransaction(-1)} disabled={customer.remaining <= 0}>
+  <div style={counterStyle}>
+    <h2 style={{ fontSize: 32, margin: 0 }}>{customer.remaining}</h2>
+    <p>Sharpenings Remaining</p>
+  </div>
+</div>
+
+
+
+      <div style={{ display: "flex", gap: 24, marginTop: 32, flexWrap: "wrap" }}>
+        <button style={primaryButton} onClick={() => handleTransaction(+1)}>+1</button>
+        <button style={secondaryButton} onClick={() => handleTransaction(-1)} disabled={customer.remaining <= 0}>
           –1
         </button>
-        <button onClick={() => handleTransaction(+10)}>Add Pass (+10)</button>
-        <button onClick={() => setShowEditModal(true)}>
-          Edit
+        <button style={primaryButton} onClick={() => handleTransaction(+10)}>Add Pass (+10)</button>
+        <button style={secondaryButton} onClick={() => setShowEditModal(true)}>
+          Edit Customer
         </button>
-        <button onClick={handleSoftDelete} style={{ background: "red", color: "white" }}>
+      </div>
+      <div style={{ marginTop: 32, flexWrap: "wrap" }}>
+        <button onClick={handleSoftDelete} style={dangerButton}>
           Delete Customer
         </button>
       </div>
+      
         {showEditModal && (
           <EditCustomerModal
             customer={customer}
@@ -112,19 +120,60 @@ const Customer = () => {
             onSave={(updatedCustomer) => setCustomer(updatedCustomer)}
           />
         )}
-      <h3 style={{ marginTop: 32 }}>History</h3>
+      <h3 style={{ marginTop: 32 }}>Customer Transaction History</h3>
       <TransactionsTable customerId={customer.id} />
     </div>
   );
 };
 
 const counterStyle = {
-  marginTop: 24,
   padding: 16,
   border: "1px solid #ccc",
   borderRadius: 8,
   width: 200,
   textAlign: "center"
+};
+
+const buttonStyle = {
+  minHeight: 48,
+  padding: "0 20px",
+  fontSize: 16,
+  borderRadius: 8,
+  cursor: "pointer"
+};
+
+const primaryButton = {
+  ...buttonStyle,
+  backgroundColor: "#2563eb",
+  color: "white",
+  border: "none"
+};
+
+const secondaryButton = {
+  ...buttonStyle,
+  backgroundColor: "#f3f4f6",
+  color: "#111",
+  border: "1px solid #ccc"
+};
+
+const dangerButton = {
+  ...buttonStyle,
+  backgroundColor: "#dc2626",
+  color: "white",
+  border: "none"
+};
+
+const infoContainerStyle = {
+  display: "flex",
+  alignItems: "center", // vertically centers counter
+  flexWrap: "wrap", // wraps nicely if screen is narrow
+  gap: 30, // space between info and counter
+};
+
+const customerInfoStyle = {
+  display: "flex",
+  flexDirection: "column",
+  gap: 2
 };
 
 export default Customer;

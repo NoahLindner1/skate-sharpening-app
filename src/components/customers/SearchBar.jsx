@@ -6,7 +6,7 @@ const SearchBar = ({ value, onChange }) => {
       value={value}
       onChange={(e) => onChange(e.target.value)}
       style={{
-        width: "100%",
+        width: "98%",
         padding: 12,
         fontSize: 16,
         marginBottom: 16
