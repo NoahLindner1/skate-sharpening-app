@@ -34,13 +34,14 @@ const Login = () => {
   };
 
   return (
-    <div style={{ padding: 32 }}>
-      <h1>Login</h1>
+    <div style={pageStyle}>
+      <form onSubmit={handleSubmit} style={cardStyle}>
+        <h1 style={{ marginBottom: 24 }}>Login</h1>
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email</label><br />
+        <div style={fieldStyle}>
+          <label>Email</label>
           <input
+            style={inputStyle}
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -48,11 +49,10 @@ const Login = () => {
           />
         </div>
 
-        <br />
-
-        <div>
-          <label>Password</label><br />
+        <div style={fieldStyle}>
+          <label>Password</label>
           <input
+            style={inputStyle}
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -60,11 +60,10 @@ const Login = () => {
           />
         </div>
 
-        <br />
-
-        <div>
-          <label>Store</label><br />
+        <div style={fieldStyle}>
+          <label>Store</label>
           <select
+            style={inputStyle}
             value={store}
             onChange={(e) => setStore(e.target.value)}
             required
@@ -75,16 +74,68 @@ const Login = () => {
           </select>
         </div>
 
-        <br />
+      {error && <div style={errorStyle}>{error}</div>}
 
-        {error && <p style={{ color: "red" }}>{error}</p>}
-
-        <button type="submit" disabled={loading}>
+        <button style={buttonStyle} type="submit" disabled={loading}>
           {loading ? "Logging in..." : "Login"}
         </button>
       </form>
     </div>
   );
 };
+
+const pageStyle = {
+  minHeight: "100vh",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  backgroundColor: "#f9fafb",
+  padding: 16
+};
+
+const cardStyle = {
+  width: "100%",
+  maxWidth: 360,
+  backgroundColor: "#fff",
+  padding: 32,
+  borderRadius: 12,
+  boxShadow: "0 10px 20px rgba(0,0,0,0.1)"
+};
+
+const fieldStyle = {
+  display: "flex",
+  flexDirection: "column",
+  marginBottom: 16
+};
+
+const inputStyle = {
+  minHeight: 48,
+  padding: "0 12px",
+  fontSize: 16,
+  borderRadius: 8,
+  border: "1px solid #ccc"
+};
+
+const buttonStyle = {
+  marginTop: 16,
+  minHeight: 48,
+  fontSize: 16,
+  borderRadius: 8,
+  border: "none",
+  backgroundColor: "#2563eb",
+  color: "white",
+  cursor: "pointer"
+};
+
+const errorStyle = {
+  marginTop: 8,
+  marginBottom: 8,
+  padding: 12,
+  backgroundColor: "#fee2e2",
+  color: "#991b1b",
+  borderRadius: 8,
+  fontSize: 14
+};
+
 
 export default Login;
