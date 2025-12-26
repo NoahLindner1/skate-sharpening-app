@@ -47,9 +47,13 @@ export const createCustomer = async ({
     createdAt: serverTimestamp()
   });
 
-  // initial transaction
   if (initialSharpenings > 0) {
-    await addTransaction(docRef.id, initialSharpenings, "initial");
+    await addTransaction(
+      docRef.id,
+      initialSharpenings,
+      "initial",
+      "system" // or auth.currentUser.email if you prefer
+    );
   }
 
   return docRef.id;
@@ -79,14 +83,14 @@ export const updateSharpenings = async (customerId, delta, reason) => {
   await addTransaction(customerId, delta, reason);
 };
 
-// 🔹 Add transaction
-export const addTransaction = async (customerId, delta, reason) => {
+export const addTransaction = async (customerId, delta, type, userEmail) => {
   await addDoc(
     collection(db, "customers", customerId, "transactions"),
     {
       delta,
-      reason,
-      timestamp: serverTimestamp()
+      type,                // ✅ matches rules
+      userEmail,           // ✅ matches rules
+      createdAt: serverTimestamp() // ✅ matches rules
     }
   );
 };

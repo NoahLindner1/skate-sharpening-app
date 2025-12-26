@@ -26,7 +26,7 @@ const handleSubmit = async (e) => {
       phone,
       email,
       store,
-      remaining: Number(remaining)
+      initialSharpenings: Number(remaining)
     });
 
     onClose();
@@ -42,9 +42,10 @@ const handleSubmit = async (e) => {
   return (
     <div style={overlayStyle}>
       <form style={modalStyle} onSubmit={handleSubmit}>
-        <h2>Add Customer</h2>
+        <h2 style={{ marginBottom: 8 }}>Add Customer</h2>
 
         <input
+          style={inputStyle}
           placeholder="Name *"
           value={name}
           onChange={(e) => setName(e.target.value)}
@@ -52,18 +53,21 @@ const handleSubmit = async (e) => {
         />
 
         <input
+          style={inputStyle}
           placeholder="Phone"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
         />
 
         <input
+          style={inputStyle}
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
 
         <select
+          style={inputStyle}
           value={remaining}
           onChange={(e) => setRemaining(e.target.value)}
         >
@@ -72,11 +76,11 @@ const handleSubmit = async (e) => {
           <option value={10}>+10 sharpenings</option>
         </select>
 
-        <div style={{ marginTop: 16 }}>
-          <button type="submit" disabled={loading}>
+        <div style={buttonRow}>
+          <button type="submit" disabled={loading} style={primaryButton}>
             {loading ? "Saving..." : "Create"}
           </button>
-          <button type="button" onClick={onClose} style={{ marginLeft: 8 }}>
+          <button type="button" onClick={onClose} style={secondaryButton}>
             Cancel
           </button>
         </div>
@@ -88,20 +92,59 @@ const handleSubmit = async (e) => {
 const overlayStyle = {
   position: "fixed",
   inset: 0,
-  background: "rgba(0,0,0,0.4)",
+  background: "rgba(0,0,0,0.45)",
   display: "flex",
   justifyContent: "center",
-  alignItems: "center"
+  alignItems: "center",
+  padding: 16
 };
 
 const modalStyle = {
   background: "#fff",
   padding: 24,
-  width: 320,
-  borderRadius: 8,
+  width: "100%",
+  maxWidth: 400,
+  borderRadius: 12,
   display: "flex",
   flexDirection: "column",
-  gap: 12
+  boxShadow: "0 10px 25px rgba(0,0,0,0.15)"
 };
+
+const inputStyle = {
+  minHeight: 48,
+  padding: "0 14px",
+  fontSize: 16,
+  borderRadius: 8,
+  border: "1px solid #ccc",
+  marginBottom: 12
+};
+
+const buttonRow = {
+  display: "flex",
+  flexDirection: "column",
+  gap: 12,
+  marginTop: 16
+};
+
+const primaryButton = {
+  minHeight: 48,
+  fontSize: 16,
+  borderRadius: 8,
+  backgroundColor: "#2563eb",
+  color: "#fff",
+  border: "none",
+  cursor: "pointer"
+};
+
+const secondaryButton = {
+  minHeight: 48,
+  fontSize: 16,
+  borderRadius: 8,
+  backgroundColor: "#f3f4f6",
+  color: "#111",
+  border: "1px solid #ccc",
+  cursor: "pointer"
+};
+
 
 export default AddCustomerModal;
