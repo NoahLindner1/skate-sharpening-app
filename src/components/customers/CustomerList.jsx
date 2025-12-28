@@ -40,7 +40,8 @@ const CustomerList = ({ customers, setCustomers }) => {
         <thead>
           <tr>
             <th style={thStyle}>Name</th>
-            <th style={thStyle}>Quick Actions</th>
+            <th style={thStyle}>Add</th>
+            <th style={thStyle}>Remove</th>
             <th style={thStyle}>Remaining</th>
           </tr>
         </thead>
@@ -59,18 +60,20 @@ const CustomerList = ({ customers, setCustomers }) => {
                   >
                     +1
                   </button>
-
+                  <button
+                    onClick={(e) => handleQuickUpdate(e, customer, +10)}
+                  >
+                    +10
+                  </button>
+                </div>
+              </td>
+              <td style={tdStyleMin}>
+                <div>
                   <button
                     onClick={(e) => handleQuickUpdate(e, customer, -1)}
                     disabled={customer.remaining <= 0}
                   >
                     –1
-                  </button>
-
-                  <button
-                    onClick={(e) => handleQuickUpdate(e, customer, +10)}
-                  >
-                    +10
                   </button>
                 </div>
               </td>
@@ -111,11 +114,16 @@ const thStyle = {
 };
 
 const tdStyle = {
-  padding: "10px 2px",
+  padding: "8px 2px",
   borderBottom: "1px solid #e5e7eb",
-  verticalAlign: "middle"
+  verticalAlign: "left"
 };
 
+const tdStyleMin = {
+  padding: "8px 2px",
+  borderBottom: "1px solid #e5e7eb",
+  textAlign: "right",
+};
 const numericCell = {
   textAlign: "right",
   fontWeight: 500
