@@ -30,6 +30,7 @@ const useCustomers = () => {
 
   return {
     customers,
+    setCustomers,
     loading,
     error
   };

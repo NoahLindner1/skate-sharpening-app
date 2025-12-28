@@ -31,25 +31,25 @@ const bannerStyle = {
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-  padding: 12,
+  padding: 8,
   borderBottom: "1px solid #ccc",
   flexWrap: "wrap" // ensures it doesn’t break on small screens
 };
 
 const leftButtons = {
   display: "flex",
-  gap: 12
+  gap: 6
 };
 
 const rightButtons = {
   display: "flex",
   alignItems: "center",
-  gap: 12
+  gap: 6
 };
 
 const buttonStyle = {
-  minHeight: 48,
-  padding: "0 20px",
+  minHeight: 40,
+  padding: "0 10px",
   fontSize: 16,
   borderRadius: 8,
   cursor: "pointer"

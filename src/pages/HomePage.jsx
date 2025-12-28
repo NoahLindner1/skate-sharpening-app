@@ -4,7 +4,7 @@ import SearchBar from "../components/customers/SearchBar";
 import CustomerList from "../components/customers/CustomerList";
 
 const Home = () => {
-  const { customers, loading, error } = useCustomers();
+  const { customers, setCustomers, loading, error } = useCustomers();
   const [search, setSearch] = useState("");
 
   if (loading) return <p>Loading customers...</p>;
@@ -17,7 +17,7 @@ const Home = () => {
   return (
     <div style={{ padding: 16 }}>
       <SearchBar value={search} onChange={setSearch} />
-      <CustomerList customers={filteredCustomers} />
+      <CustomerList customers={filteredCustomers} setCustomers={setCustomers} />
     </div>
   );
 };

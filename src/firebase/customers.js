@@ -59,10 +59,14 @@ export const createCustomer = async ({
   return docRef.id;
 };
 
-export const updateSharpenings = async (customerId, delta, reason) => {
+export const updateSharpenings = async (
+  customerId,
+  delta,
+  reason,
+  userEmail
+) => {
   const customerRef = doc(db, "customers", customerId);
 
-  // 🔒 Fetch customer first
   const snapshot = await getDocs(
     query(
       collection(db, "customers"),
@@ -76,11 +80,15 @@ export const updateSharpenings = async (customerId, delta, reason) => {
     throw new Error("Cannot update a deleted customer");
   }
 
+  if (customer.remaining + delta < 0) {
+    throw new Error("Cannot go below zero");
+  }
+
   await updateDoc(customerRef, {
     remaining: increment(delta)
   });
 
-  await addTransaction(customerId, delta, reason);
+  await addTransaction(customerId, delta, reason, userEmail);
 };
 
 export const addTransaction = async (customerId, delta, type, userEmail) => {
